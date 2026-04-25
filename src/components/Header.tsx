@@ -6,6 +6,12 @@ export default async function Header() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
+  let avatarUrl = null
+  if (user) {
+    const { data } = await supabase.from('profiles').select('avatar_url').eq('id', user.id).single()
+    if (data) avatarUrl = data.avatar_url
+  }
+
   return (
     <header className="sticky top-0 right-0 left-0 h-[104px] glass-header px-16 flex items-center justify-end z-10 w-full rounded-b-xl">
       <div className="flex items-center gap-8">
@@ -15,7 +21,7 @@ export default async function Header() {
         </button>
         
         {user ? (
-          <ProfileMenu userEmail={user.email || ''} />
+          <ProfileMenu userEmail={user.email || ''} avatarUrl={avatarUrl} />
         ) : (
           <Link href="/login" className="px-8 py-3.5 rounded-md primary-gradient-bg text-[#fef8f3] font-medium shadow-[0_8px_20px_rgba(117,88,78,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wide block">
             Log in

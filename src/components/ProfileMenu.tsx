@@ -3,8 +3,9 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { signOut } from '@/app/login/actions'
+import Image from 'next/image'
 
-export default function ProfileMenu({ userEmail }: { userEmail: string }) {
+export default function ProfileMenu({ userEmail, avatarUrl }: { userEmail: string, avatarUrl: string | null }) {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -23,10 +24,14 @@ export default function ProfileMenu({ userEmail }: { userEmail: string }) {
     <div className="relative" ref={menuRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 flex items-center justify-center text-on-surface font-semibold hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+        className="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 flex items-center justify-center text-on-surface font-semibold hover:bg-surface-container-high transition-colors focus:outline-none focus:ring-2 focus:ring-primary shadow-sm overflow-hidden relative"
         title={userEmail}
       >
-        {userEmail?.charAt(0).toUpperCase() || 'U'}
+        {avatarUrl ? (
+          <Image src={avatarUrl} alt="Avatar" fill className="object-cover" sizes="40px" />
+        ) : (
+          userEmail?.charAt(0).toUpperCase() || 'U'
+        )}
       </button>
 
       {isOpen && (

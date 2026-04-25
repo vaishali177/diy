@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { signOut } from '@/app/login/actions'
+import AvatarUpload from '@/components/AvatarUpload'
 
 export default async function ProfilePage() {
   const supabase = await createClient()
@@ -11,6 +12,15 @@ export default async function ProfilePage() {
   if (!user) {
     redirect('/login')
   }
+
+  const { data: profile } = await supabase.from('profiles').select('avatar_url').eq('id', user.id).single()
+  
+  const { data: lists } = await supabase
+    .from('lists')
+    .select('*, saved_items(*)')
+    .eq('user_id', user.id)
+    .order('is_default', { ascending: false })
+    .order('created_at', { ascending: true })
 
   return (
     <>
@@ -45,9 +55,7 @@ export default async function ProfilePage() {
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
             
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">
-              <div className="w-24 h-24 rounded-full bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-4xl text-on-surface font-serif shadow-inner">
-                {user.email?.charAt(0).toUpperCase()}
-              </div>
+              <AvatarUpload uid={user.id} url={profile?.avatar_url || null} />
               
               <div className="flex-1">
                 <div className="text-[11px] font-bold tracking-widest uppercase text-tertiary mb-2">Registered Email</div>
@@ -62,10 +70,51 @@ export default async function ProfilePage() {
             </div>
             
             <div className="mt-12 pt-8 border-t border-outline-variant/10 relative z-10">
-              <h3 className="text-xl font-serif text-inverse-surface mb-4">Saved Patterns & Projects</h3>
-              <div className="bg-surface-container/50 border border-outline-variant/10 rounded-xl p-8 text-center border-dashed">
-                <p className="text-on-surface/50 text-sm">Your saved craft projects will appear here.</p>
-              </div>
+              <h3 className="text-xl font-serif text-inverse-surface mb-6">Saved Patterns & Projects</h3>
+              
+              {lists && lists.length > 0 ? (
+                <div className="space-y-8">
+                  {lists.map((list: any) => (
+                    <div key={list.id} className="bg-surface-container-lowest border border-outline-variant/10 rounded-xl overflow-hidden shadow-sm">
+                      <div className="px-6 py-4 bg-surface-container-low border-b border-outline-variant/5 flex justify-between items-center">
+                        <h4 className="font-medium text-inverse-surface flex items-center gap-2">
+                          {list.name}
+                          {list.is_default && <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase tracking-widest font-bold">Default</span>}
+                        </h4>
+                        <span className="text-xs text-on-surface/60 font-mono">{list.saved_items?.length || 0} items</span>
+                      </div>
+                      
+                      <div className="p-6">
+                        {!list.saved_items || list.saved_items.length === 0 ? (
+                          <p className="text-on-surface/40 text-sm italic">Nothing saved here yet.</p>
+                        ) : (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {list.saved_items.map((item: any) => (
+                              <Link href={`/pattern-calculator/${item.reference_id}`} key={item.id} className="block group">
+                                <div className="p-4 rounded-lg border border-outline-variant/10 hover:border-primary/40 transition-colors bg-surface-container/30 group-hover:bg-surface-container flex flex-col h-full shadow-sm">
+                                  <div className="text-[10px] font-bold tracking-widest uppercase text-tertiary mb-2">{item.item_type}</div>
+                                  <div className="font-medium text-inverse-surface capitalize mb-3 text-sm">{item.reference_id.replace('-', ' ')}</div>
+                                  {item.metadata && Object.keys(item.metadata).length > 0 && (
+                                    <div className="mt-auto pt-3 border-t border-outline-variant/5 text-xs text-on-surface/70 font-mono">
+                                      {item.metadata.height && `H:${item.metadata.height}cm `}
+                                      {item.metadata.length && `L:${item.metadata.length}cm `}
+                                      {item.metadata.seam && `Seam:${item.metadata.seam}cm`}
+                                    </div>
+                                  )}
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="bg-surface-container/50 border border-outline-variant/10 rounded-xl p-8 text-center border-dashed">
+                  <p className="text-on-surface/50 text-sm">Your saved craft projects will appear here.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

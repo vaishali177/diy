@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import SaveBookmarkButton from '@/components/SaveBookmarkButton'
 
 // Use Tailwind/theme variable mappings.
 const COLORS = {
@@ -325,8 +326,11 @@ export default function TeddyBearCalculator() {
 
           {/* materials summary */}
           <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-4 shadow-sm">
-            <div className="text-[11px] font-semibold text-tertiary mb-3 uppercase tracking-[0.06em]">
-              Materials needed
+            <div className="flex justify-between items-center mb-3">
+              <div className="text-[11px] font-semibold text-tertiary uppercase tracking-[0.06em]">
+                Materials needed
+              </div>
+              <SaveBookmarkButton itemType="calculation" referenceId="teddy-bear" metadata={{ height, seam, fabric }} label="Save Calc" />
             </div>
             {[
               { label: 'Fabric strip', value: `${materials.fabricLen} cm`, sub: '× 45 cm wide' },

@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Link from 'next/link'
 import Image from 'next/image'
+import SaveBookmarkButton from '@/components/SaveBookmarkButton'
 
 export default function PatternCalculatorCatalog() {
   return (
@@ -47,6 +48,9 @@ export default function PatternCalculatorCatalog() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-4 right-4 z-20">
+                    <SaveBookmarkButton itemType="tool" referenceId="teddy-bear" label="" className="bg-surface-container-highest/80 backdrop-blur-md rounded-md" />
+                  </div>
                   <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
                     <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
                   </div>
@@ -69,6 +73,9 @@ export default function PatternCalculatorCatalog() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-4 right-4 z-20">
+                    <SaveBookmarkButton itemType="tool" referenceId="bunny" label="" className="bg-surface-container-highest/80 backdrop-blur-md rounded-md" />
+                  </div>
                   <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
                     <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
                   </div>
@@ -91,6 +98,9 @@ export default function PatternCalculatorCatalog() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-4 right-4 z-20">
+                    <SaveBookmarkButton itemType="tool" referenceId="fish" label="" className="bg-surface-container-highest/80 backdrop-blur-md rounded-md" />
+                  </div>
                   <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
                     <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
                   </div>

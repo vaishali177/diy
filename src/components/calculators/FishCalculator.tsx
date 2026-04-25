@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import SaveBookmarkButton from '@/components/SaveBookmarkButton'
+import { generatePDF, calculateGrid, PaperSize } from '@/utils/pdfGenerator'
 
 const COLORS = {
   bg: '#1e2d34',
@@ -42,6 +44,77 @@ function calcMaterials(length: number, seam: number, fabricMult: number) {
   const eyes      = length <= 20 ? 9 : length <= 40 ? 12 : 18
   const thread    = Math.round(length * 2.5)
   return { fabricLen, stuffing, eyes, thread }
+}
+
+// Generates the raw physical MM vector string for PDF parsing
+function generateFishPatternSVG(length: number, seam: number) {
+  const pieces = calcPieces(length, seam);
+  const FABRIC_W_MM = 450; // standard 45cm fabric width in mm
+  const PAD_MM = 10;
+
+  const layout: any[] = [];
+  let x = PAD_MM, y = PAD_MM, rowH = 0;
+  
+  Object.values(pieces).forEach((piece) => {
+    const boxes = Math.ceil(piece.qty / 2);
+    for (let i = 0; i < boxes; i++) {
+      const pw = piece.w * 10; // convert cm to mm
+      const ph = piece.h * 10;
+      if (x + pw > FABRIC_W_MM - PAD_MM) {
+        x = PAD_MM; y += rowH + PAD_MM; rowH = 0;
+      }
+      layout.push({ ...piece, x, y, pw, ph });
+      x += pw + PAD_MM;
+      if (ph > rowH) rowH = ph;
+    }
+  });
+
+  const totalH = y + rowH + PAD_MM * 2;
+  const totalW = FABRIC_W_MM;
+
+  // Build the SVG string manually with hardcoded hex values (no CSS vars!)
+  let svgContent = '';
+  
+  // Fabric bounds
+  svgContent += `<rect x="0" y="0" width="${totalW}" height="${totalH}" fill="#ffffff" />`;
+  svgContent += `<line x1="${PAD_MM}" y1="5" x2="${totalW - PAD_MM}" y2="5" stroke="#d07023" stroke-width="1" stroke-dasharray="10 5" />`;
+  svgContent += `<text x="${PAD_MM + 5}" y="15" font-size="8" fill="#d07023" font-family="monospace">FOLD / SELVAGE EDGE</text>`;
+
+  layout.forEach(p => {
+    const { x, y, pw: w, ph: h, label } = p;
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const inset = seam * 10; // seam in mm
+    
+    let d = '';
+    if (label === 'Main Body') {
+      d = `M ${x} ${cy} C ${x+w*0.3} ${y}, ${x+w*0.7} ${y}, ${x+w} ${cy} C ${x+w*0.7} ${y+h}, ${x+w*0.3} ${y+h}, ${x} ${cy} Z`;
+    } else if (label === 'Tail Fin') {
+      d = `M ${x} ${cy} L ${x+w} ${y} L ${x+w*0.7} ${cy} L ${x+w} ${y+h} Z`;
+    } else {
+      d = `M ${x} ${cy} C ${cx} ${y}, ${x+w} ${y+h*0.3}, ${x+w} ${y+h} L ${x} ${y+h} Z`;
+    }
+
+    const scaleX = w > 0 ? (w - inset * 2) / w : 0;
+    const scaleY = h > 0 ? (h - inset * 2) / h : 0;
+    const tr = `translate(${cx}, ${cy}) scale(${scaleX > 0 ? scaleX : 0}, ${scaleY > 0 ? scaleY : 0}) translate(${-cx}, ${-cy})`;
+
+    // Solid outer line (cut line)
+    svgContent += `<path d="${d}" fill="none" stroke="#000000" stroke-width="1.5" />`;
+    
+    // Dashed inner line (seam line)
+    if (scaleX > 0 && scaleY > 0) {
+      svgContent += `<path d="${d}" fill="none" stroke="#666666" stroke-width="0.8" stroke-dasharray="4 2" transform="${tr}" />`;
+    }
+    
+    // Text labels
+    svgContent += `<text x="${cx}" y="${cy}" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">${label}</text>`;
+    svgContent += `<text x="${cx}" y="${cy + 15}" text-anchor="middle" font-size="9" fill="#000000">Cut ${p.qty}</text>`;
+  });
+
+  const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}mm" height="${totalH}mm" viewBox="0 0 ${totalW} ${totalH}">${svgContent}</svg>`;
+  
+  return { svgString, totalW, totalH };
 }
 
 function PatternDiagram({ length, seam }: { length: number, seam: number }) {
@@ -143,9 +216,27 @@ export default function FishCalculator() {
   const [seam, setSeam]       = useState(1)
   const [fabric, setFabric]   = useState(1.08) // Cotton is great for simple fish
   const [activeTab, setActiveTab] = useState<'pieces' | 'pattern' | 'steps'>('pieces')
+  
+  const [paperSize, setPaperSize] = useState<PaperSize>('A4')
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false)
 
   const pieces    = calcPieces(length, seam)
   const materials = calcMaterials(length, seam, fabric)
+  
+  const patternData = generateFishPatternSVG(length, seam)
+  const gridPreview = calculateGrid(patternData.totalW, patternData.totalH, paperSize)
+
+  const handleDownloadPdf = async () => {
+    setIsGeneratingPdf(true)
+    try {
+      await generatePDF(patternData.svgString, patternData.totalW, patternData.totalH, paperSize, 'Fish Plushie')
+    } catch(err) {
+      alert("Error generating PDF")
+      console.error(err)
+    } finally {
+      setIsGeneratingPdf(false)
+    }
+  }
 
   return (
     <div className="w-full text-on-surface">
@@ -193,7 +284,10 @@ export default function FishCalculator() {
           </div>
           
           <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-4 shadow-sm">
-             <div className="text-[11px] font-semibold text-tertiary mb-3 uppercase tracking-[0.06em]">Materials</div>
+             <div className="flex justify-between items-center mb-3">
+               <div className="text-[11px] font-semibold text-tertiary uppercase tracking-[0.06em]">Materials</div>
+               <SaveBookmarkButton itemType="calculation" referenceId="fish" metadata={{ length, seam, fabric }} label="Save" />
+             </div>
              <div className="text-[15px] font-semibold text-primary">{materials.fabricLen} cm fabric</div>
              <div className="text-[13px] text-on-surface/60">{materials.stuffing}g stuffing</div>
           </div>
@@ -236,6 +330,31 @@ export default function FishCalculator() {
 
             {activeTab === 'pattern' && (
               <div className="animate-in fade-in duration-300">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 bg-surface-container-low p-4 rounded-xl border border-outline-variant/20">
+                  <div>
+                    <h4 className="text-sm font-bold text-inverse-surface mb-1">Printable Vector Pattern</h4>
+                    <p className="text-xs text-on-surface/60">
+                      Requires {gridPreview.totalPages} sheets of paper ({gridPreview.cols}×{gridPreview.rows} grid).
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 mt-3 sm:mt-0">
+                    <select 
+                      value={paperSize} 
+                      onChange={e => setPaperSize(e.target.value as PaperSize)}
+                      className="bg-surface-container border border-outline-variant/20 rounded-md text-xs p-2.5 outline-none font-medium text-inverse-surface cursor-pointer"
+                    >
+                      <option value="A4">A4 Paper</option>
+                      <option value="US_LETTER">US Letter</option>
+                    </select>
+                    <button 
+                      onClick={handleDownloadPdf}
+                      disabled={isGeneratingPdf}
+                      className="bg-primary text-surface-container-lowest px-5 py-2.5 rounded-md text-xs font-bold tracking-widest uppercase hover:bg-primary/90 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                    >
+                      {isGeneratingPdf ? 'Generating...' : 'Download PDF'}
+                    </button>
+                  </div>
+                </div>
                 <PatternDiagram length={length} seam={seam} />
               </div>
             )}
