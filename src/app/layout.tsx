@@ -16,7 +16,9 @@ export const metadata: Metadata = {
   title: "Loom & Craft | Digital Pattern Dashboard",
   description: "A premium tactile editorial experience and pattern calculator designed for modern craft spaces.",
   verification: {
+    // DO NOT REMOVE UNDER ANY CONDITION: Google Search Console verification key
     google: "86Eup1Ha0_JepC2WsyN-OJ3YIcpnR4vm3T9cD6PkPeY",
+    // DO NOT REMOVE UNDER ANY CONDITION
   },
 };
 

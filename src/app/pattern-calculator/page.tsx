@@ -36,7 +36,7 @@ export default function PatternCalculatorCatalog() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-12 pb-12">
             
-            {/* The Pattern Calculator Card */}
+            {/* Teddy Bear Calculator Card */}
             <Link href="/pattern-calculator/teddy-bear" className="block outline-none focus:ring-2 focus:ring-primary rounded-[1.25rem]">
               <div className="bg-[#0f1a17] ambient-shadow rounded-[1.25rem] overflow-hidden group cursor-pointer hover:-translate-y-2 transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] flex flex-col border border-outline-variant/10">
                 <div className="h-[220px] transition-colors relative flex items-center justify-center overflow-hidden">
@@ -44,17 +44,60 @@ export default function PatternCalculatorCatalog() {
                     src="/images/teddy-bear-pattern.png" 
                     alt="Teddy Bear Pattern Preview" 
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {/* Tool Badge overlapping exactly like the screenshot */}
                   <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
                     <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
                   </div>
                 </div>
-                
                 <div className="p-8 pt-12 flex-1">
                   <h3 className="text-3xl font-serif mb-4 text-[#f0ebe3] group-hover:text-[#d07023] transition-colors">Teddy Bear Pattern</h3>
                   <p className="text-[#d6e3df] text-[15px] opacity-80 leading-relaxed">Calculate exact fabric yardage and cutting dimensions for a plush bear.</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Bunny Plushie Calculator Card */}
+            <Link href="/pattern-calculator/bunny" className="block outline-none focus:ring-2 focus:ring-primary rounded-[1.25rem]">
+              <div className="bg-[#1a1512] ambient-shadow rounded-[1.25rem] overflow-hidden group cursor-pointer hover:-translate-y-2 transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] flex flex-col border border-outline-variant/10">
+                <div className="h-[220px] transition-colors relative flex items-center justify-center overflow-hidden bg-secondary-container">
+                  <Image 
+                    src="/images/bunny-pattern.png" 
+                    alt="Bunny Plushie Pattern Preview" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
+                    <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
+                  </div>
+                </div>
+                <div className="p-8 pt-12 flex-1">
+                  <h3 className="text-3xl font-serif mb-4 text-[#f0ebe3] group-hover:text-[#d07023] transition-colors">Bunny Plushie</h3>
+                  <p className="text-[#d6e3df] text-[15px] opacity-80 leading-relaxed">Adjust ear length and body proportions to calculate your custom bunny plushie materials.</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Fish Plushie Calculator Card */}
+            <Link href="/pattern-calculator/fish" className="block outline-none focus:ring-2 focus:ring-primary rounded-[1.25rem]">
+              <div className="bg-[#12181a] ambient-shadow rounded-[1.25rem] overflow-hidden group cursor-pointer hover:-translate-y-2 transition-all duration-400 ease-[cubic-bezier(0.2,0.8,0.2,1)] flex flex-col border border-outline-variant/10">
+                <div className="h-[220px] transition-colors relative flex items-center justify-center overflow-hidden bg-tertiary-container">
+                  <Image 
+                    src="/images/fish-pattern.png" 
+                    alt="Fish Plushie Pattern Preview" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute -bottom-3.5 left-8 shadow-sm backdrop-blur-md rounded-[1.2rem] px-5 py-1.5 z-10" style={{ background: 'linear-gradient(to bottom, #e1ebe8, #c1cdca)' }}>
+                    <div className="text-[10px] font-bold tracking-widest uppercase text-[#8b6355]">Tool</div>
+                  </div>
+                </div>
+                <div className="p-8 pt-12 flex-1">
+                  <h3 className="text-3xl font-serif mb-4 text-[#f0ebe3] group-hover:text-[#d07023] transition-colors">Fish Plushie</h3>
+                  <p className="text-[#d6e3df] text-[15px] opacity-80 leading-relaxed">A simpler pattern perfect for beginners. Calculate measurements for a streamlined aquatic plush.</p>
                 </div>
               </div>
             </Link>
