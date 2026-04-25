@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
-import { signOut } from '@/app/login/actions'
+import ProfileMenu from './ProfileMenu'
 
 export default async function Header() {
   const supabase = await createClient()
@@ -15,15 +15,7 @@ export default async function Header() {
         </button>
         
         {user ? (
-          <form action={signOut} className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 flex items-center justify-center text-on-surface font-semibold overflow-hidden" title={user.email}>
-              {/* Profile Icon showing first letter of email */}
-              {user.email?.charAt(0).toUpperCase() || 'U'}
-            </div>
-            <button type="submit" className="text-sm font-semibold text-on-surface/70 hover:text-on-surface transition-colors cursor-pointer">
-              Sign out
-            </button>
-          </form>
+          <ProfileMenu userEmail={user.email || ''} />
         ) : (
           <Link href="/login" className="px-8 py-3.5 rounded-md primary-gradient-bg text-[#fef8f3] font-medium shadow-[0_8px_20px_rgba(117,88,78,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wide block">
             Log in

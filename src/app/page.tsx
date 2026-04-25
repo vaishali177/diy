@@ -33,17 +33,7 @@ export default function Home() {
       {/* Main Content Area */}
       <main className="flex-1 h-full bg-surface relative overflow-y-auto w-full">
         {/* Top-Right Header */}
-        <header className="sticky top-0 right-0 left-0 h-20 md:h-[104px] glass-header px-6 md:px-16 flex items-center justify-end z-10 w-full rounded-b-xl border-b border-outline-variant/5 md:border-none">
-          <div className="flex items-center gap-4 md:gap-8">
-            <button className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-surface-container hover:bg-surface-container-high transition-transform hover:scale-105 active:scale-95 text-on-surface" aria-label="Toggle Night Mode">
-              {/* Moon Icon Placeholder */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-            </button>
-            <button className="px-6 py-2.5 md:px-8 md:py-3.5 rounded-md primary-gradient-bg text-[#fef8f3] font-medium shadow-[0_8px_20px_rgba(117,88,78,0.25)] hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wide text-sm md:text-base">
-              Sign In
-            </button>
-          </div>
-        </header>
+        <Header />
 
         {/* Page Content */}
         <div className="pt-10 md:pt-20 px-6 md:px-16 pb-20 w-full max-w-6xl">
