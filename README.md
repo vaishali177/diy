@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Loom & Craft
+
+A digital sanctuary for soft toy and plushie crafters. Loom & Craft provides interactive pattern calculators, step-by-step tutorials, and a curated resource hub to help creators of all skill levels bring their plushie ideas to life.
+
+## Features
+
+- **Pattern Calculators** — Interactive tools for calculating exact fabric yardage and cut piece dimensions for plushie patterns (Teddy Bear, Bunny, Fish, and more). Outputs a printable PDF pattern layout.
+- **Tutorial Guides** — Step-by-step cutting guides and beginner-friendly articles on topics like fabric selection, sewing curves, and more.
+- **Saved Projects** *(coming soon)* — Log in with Google or email to save your calculations and bookmark tutorials.
+- **Printable Patterns** — Download scaled vector PDFs formatted for A4 or US Letter paper.
+
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org) (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with a custom Material You–inspired dark design system
+- **Auth & Database**: [Supabase](https://supabase.com) (Auth + Postgres)
+- **PDF Generation**: Custom SVG-to-PDF pipeline via `jspdf`
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- A Supabase project (for auth features)
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/loom-and-craft.git
+cd loom-and-craft/frontend
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.local.example .env.local
+# Fill in your Supabase URL and anon key
+```
+
+### Running Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx            # Homepage
+│   ├── login/              # Auth pages
+│   ├── pattern-calculator/ # Calculator catalog + individual calculators
+│   └── profile/            # User profile page
+├── components/
+│   ├── calculators/        # TeddyBearCalculator, BunnyCalculator, FishCalculator
+│   ├── Header.tsx
+│   └── ProfileMenu.tsx
+└── utils/
+    ├── pdfGenerator.ts     # SVG-to-PDF generation logic
+    └── supabase/           # Supabase client helpers
+```
 
-## Learn More
+## Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anon/public key |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

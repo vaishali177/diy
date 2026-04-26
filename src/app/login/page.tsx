@@ -20,7 +20,7 @@ export default async function LoginPage(
         
         {/* Header */}
         <div className="relative z-10">
-          <div className="text-xs font-bold tracking-[0.2em] uppercase text-[#d07023] mb-4">The Craft Sanctuary</div>
+          <div className="text-xs font-bold tracking-[0.2em] uppercase text-[#d07023] mb-4">Loom & Craft</div>
           <div className="text-5xl font-serif tracking-tight font-medium">Loom&Craft</div>
           <div className="w-12 h-0.5 bg-[#d6e3df]/30 mt-8"></div>
         </div>
@@ -126,7 +126,7 @@ export default async function LoginPage(
         {/* Footer inside right panel to ensure clean alignment */}
         <div className="w-full max-w-md mx-auto flex justify-between items-center mt-12 text-xs font-bold tracking-widest text-[#d6e3df]/30 uppercase">
           <Link href="#" className="hover:text-[#d07023] transition-colors">Terms</Link>
-          <div className="hidden md:block normal-case font-normal tracking-normal text-[0.65rem]">© 2024 The Digital Loom. Crafted for Creators.</div>
+          <div className="hidden md:block normal-case font-normal tracking-normal text-[0.65rem]">© 2026 Loom & Craft. Crafted for Creators.</div>
         </div>
       </div>
     </div>
