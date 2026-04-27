@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Link from 'next/link'
 
@@ -53,8 +54,15 @@ export default function SafetyEyesArticle() {
           </div>
 
           {/* Image placeholder */}
-          <div className="w-full h-72 bg-surface-container rounded-2xl mb-10 flex items-center justify-center border border-dashed border-outline-variant/40">
-            <span className="text-on-surface/30 text-sm font-mono tracking-wide">Image placeholder — Pic 1</span>
+
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/saftey-eye.png"
+              alt="Safety eyes with a black plastic washer for securing them in a soft toy"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
 
           {/* Steps */}

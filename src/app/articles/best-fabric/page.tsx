@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Best Fabric for Soft Toys: 5 Top Choices | Loom & Craft',
@@ -92,10 +93,18 @@ export default function FabricChoicesArticle() {
             </p>
           </div>
 
-          {/* Image placeholder */}
-          <div className="w-full h-72 bg-surface-container rounded-2xl mb-10 flex items-center justify-center border border-dashed border-outline-variant/40">
-            <span className="text-on-surface/30 text-sm font-mono tracking-wide">Image placeholder — Fabric swatches + nap direction</span>
+          {/* Hero Image */}
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/best-fabric-swatches.png"
+              alt="Five small fabric swatches arranged in a neat row"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
           </div>
+
 
           {/* Table */}
           <h2 className="text-2xl font-serif text-inverse-surface mb-6">Fabric comparison</h2>

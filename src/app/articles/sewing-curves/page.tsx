@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Sewing Perfect Curves on Small Soft Toys (No Puckers!) | Loom & Craft',
@@ -37,6 +38,7 @@ export default function SewingCurvesArticle() {
             Sewing Perfect Curves on Small Soft Toys (No Puckers!)
           </h1>
 
+
           <p className="text-lg text-on-surface/70 mb-10 leading-relaxed border-l-2 border-primary pl-5">
             Curves are tricky because the inside edge is shorter than the outside edge. The trick is clipping.
           </p>
@@ -61,6 +63,17 @@ export default function SewingCurvesArticle() {
 
           {/* Steps */}
           <h2 className="text-2xl font-serif text-inverse-surface mb-6">Step-by-step for smooth curves</h2>
+
+          {/* Image placeholder */}
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/sewing-curve.png"
+              alt="A fabric curve with clipped seam allowance ready to be turned right-side out."
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
           <div className="space-y-6 mb-12">
             {[

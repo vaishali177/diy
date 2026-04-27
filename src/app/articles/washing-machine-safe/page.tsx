@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Make Your Plushie Washing-Machine Safe | Loom & Craft',
@@ -116,9 +117,16 @@ export default function WashingMachineSafeArticle() {
             ))}
           </div>
 
-          {/* Image placeholder */}
-          <div className="w-full h-72 bg-surface-container rounded-2xl mb-10 flex items-center justify-center border border-dashed border-outline-variant/40">
-            <span className="text-on-surface/30 text-sm font-mono tracking-wide">Image placeholder — Plushie in mesh laundry bag with fabric glue + towel</span>
+          {/* Hero Image */}
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/washing-machine.png"
+              alt="Plushie in a laundry bag ready to be machine washed"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
           </div>
 
           {/* How to wash */}

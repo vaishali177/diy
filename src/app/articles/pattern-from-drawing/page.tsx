@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Link from 'next/link'
 
@@ -99,9 +100,15 @@ export default function PatternFromDrawingArticle() {
             </div>
           </div>
 
-          {/* Image placeholder */}
-          <div className="w-full h-72 bg-surface-container rounded-2xl mb-10 flex items-center justify-center border border-dashed border-outline-variant/40">
-            <span className="text-on-surface/30 text-sm font-mono tracking-wide">Image placeholder — Original → Gridded → Pattern (with labels)</span>
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/pattern-dig.png"
+              alt="Original → Gridded → Pattern"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
           </div>
 
           {/* Step 3 */}

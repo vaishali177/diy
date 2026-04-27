@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Link from 'next/link'
 
@@ -42,9 +43,17 @@ export default function PlushFabricsGuideArticle() {
           </p>
 
           {/* Image placeholder */}
-          <div className="w-full h-72 bg-surface-container rounded-2xl mb-10 flex items-center justify-center border border-dashed border-outline-variant/40">
-            <span className="text-on-surface/30 text-sm font-mono tracking-wide">Image placeholder — Minky 4-way stretch demo</span>
+
+          <div className="relative w-full h-72 rounded-2xl mb-10 overflow-hidden">
+            <Image
+              src="/images/plush-fabric.png"
+              alt="a basic teel plush fabric "
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
+
 
           {/* By Stretch */}
           <h2 className="text-2xl font-serif text-inverse-surface mb-6">By Stretch <span className="text-base font-sans text-on-surface/50">(Most important for beginners)</span></h2>

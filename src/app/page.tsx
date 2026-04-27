@@ -10,6 +10,7 @@ const articles = [
     title: 'How to Secure Safety Eyes (So They Won\'t Fall Off)',
     desc: 'Step-by-step guide to installing safety eyes so they cannot be pulled out. Includes the Pull & Push test and the pliers technique.',
     bg: 'bg-secondary-container',
+    image: '/images/saftey-eye.png',
   },
   {
     href: '/articles/best-fabric',
@@ -18,6 +19,7 @@ const articles = [
     title: 'Best Fabric for Soft Toys (5 Top Choices)',
     desc: 'A beginner\'s ranking of the top 5 soft toy fabrics from easiest to hardest, with a guide on nap direction.',
     bg: 'bg-tertiary-container',
+    image: '/images/best-fabric-swatches.png',
   },
   {
     href: '/articles/baby-stuffing',
@@ -26,6 +28,7 @@ const articles = [
     title: 'Safest Stuffing for Baby Toys (0–3 Years)',
     desc: 'Learn which stuffing materials are safe for babies, which are dangerous, and the 3 mandatory baby stuffing safety rules.',
     bg: 'bg-primary-container',
+    image: '/images/baby-stuffing-hero.png',
   },
   {
     href: '/articles/washing-machine-safe',
@@ -34,6 +37,7 @@ const articles = [
     title: 'Make Your Plushie Washing-Machine Safe',
     desc: 'How to use short stitches, reinforce stress points, and wash your plushie so it survives every cycle.',
     bg: 'bg-secondary-container',
+    image: '/images/washing-machine.png',
   },
   {
     href: '/articles/pattern-from-drawing',
@@ -42,6 +46,7 @@ const articles = [
     title: 'Making a Pattern from a Drawing (For Beginners)',
     desc: 'Use the Grid Method to scale up your drawing into a sewing pattern — no computer required.',
     bg: 'bg-tertiary-container',
+    image: '/images/pattern-dig.png',
   },
   {
     href: '/articles/plush-fabrics-guide',
@@ -50,6 +55,7 @@ const articles = [
     title: 'Beginner\'s Guide to Plush Fabrics',
     desc: 'Fabrics have a grain and stretch. This cheat sheet covers no-stretch, 1-way, and 4-way stretch fabrics with a buying guide.',
     bg: 'bg-primary-container',
+    image: '/images/plush-fabric.png',
   },
   {
     href: '/articles/sewing-curves',
@@ -58,6 +64,7 @@ const articles = [
     title: 'Sewing Perfect Curves on Small Soft Toys (No Puckers!)',
     desc: 'Master clipping for inside curves, outside curves, and tight corners to get smooth, professional-looking results.',
     bg: 'bg-secondary-container',
+    image: '/images/sewing-curve.png',
   },
   {
     href: '/pattern-calculator/teddy-bear',
@@ -125,6 +132,7 @@ export default function Home() {
                         alt={article.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
                       <span className="text-on-surface/20 text-xs font-mono tracking-wide">Image coming soon</span>
