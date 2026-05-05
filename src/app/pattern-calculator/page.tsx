@@ -2,26 +2,12 @@ import Header from '@/components/Header'
 import Link from 'next/link'
 import Image from 'next/image'
 import SaveBookmarkButton from '@/components/SaveBookmarkButton'
+import Sidebar from '@/components/Sidebar'
 
 export default function PatternCalculatorCatalog() {
   return (
     <>
-      <aside className="w-[340px] h-full bg-surface-container-low flex flex-col pt-12 pb-8 shrink-0 border-r border-outline-variant/15 hidden md:flex">
-        <div className="px-10 mb-16">
-          <Link href="/" className="text-4xl font-serif tracking-tight font-medium text-primary cursor-pointer hover:opacity-80 transition-opacity">
-            Loom & Craft
-          </Link>
-        </div>
-
-        <nav className="flex-1 px-6 space-y-3">
-          <Link href="/" className="block px-5 py-3.5 rounded-lg text-on-surface/80 font-medium hover:bg-surface-container transition-colors">
-            Browse All
-          </Link>
-          <div className="block px-5 py-3.5 rounded-lg bg-surface-container text-on-surface font-semibold">
-            Pattern Calculator
-          </div>
-        </nav>
-      </aside>
+      <Sidebar />
 
       <main className="flex-1 h-full bg-surface relative overflow-y-auto w-full">
         <Header />

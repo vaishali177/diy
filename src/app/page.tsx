@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Link from 'next/link'
 import Image from 'next/image'
+import Sidebar from '@/components/Sidebar'
 
 const articles = [
   {
@@ -81,25 +82,7 @@ export default function Home() {
   return (
     <>
       {/* Left Sidebar */}
-      <aside className="w-full md:w-[340px] h-auto md:h-full bg-surface-container-low flex flex-col pt-6 md:pt-12 pb-4 md:pb-8 shrink-0 border-b md:border-b-0 md:border-r border-outline-variant/15 relative z-20">
-        <div className="px-6 md:px-10 mb-2 md:mb-16 flex items-center justify-between md:block">
-          <div className="text-3xl md:text-4xl font-serif tracking-tight font-medium text-primary cursor-pointer hover:opacity-80 transition-opacity">
-            Loom &amp; Craft
-          </div>
-          <button className="md:hidden p-2 text-on-surface hover:bg-surface-container rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <nav className="flex-1 px-4 md:px-6 space-y-2 md:space-y-3 hidden md:block">
-          <a href="#" className="block px-5 py-3.5 rounded-lg bg-surface-container text-on-surface font-semibold hover:bg-surface-container-high transition-colors">
-            Browse All
-          </a>
-          <Link href="/pattern-calculator" className="block px-5 py-3.5 rounded-lg text-on-surface/80 font-medium hover:bg-surface-container transition-colors">
-            Pattern Calculator
-          </Link>
-        </nav>
-      </aside>
+      <Sidebar />
 
       {/* Main Content */}
       <main className="flex-1 h-full bg-surface relative overflow-y-auto w-full">

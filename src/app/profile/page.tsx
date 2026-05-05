@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { signOut } from '@/app/login/actions'
 import AvatarUpload from '@/components/AvatarUpload'
+import Sidebar from '@/components/Sidebar'
 
 export default async function ProfilePage() {
   const supabase = await createClient()
@@ -24,21 +25,7 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <aside className="w-[340px] h-full bg-surface-container-low flex flex-col pt-12 pb-8 shrink-0 border-r border-outline-variant/15 hidden md:flex relative z-20">
-        <div className="px-10 mb-16">
-          <Link href="/" className="text-4xl font-serif tracking-tight font-medium text-primary cursor-pointer hover:opacity-80 transition-opacity">
-            Loom & Craft
-          </Link>
-        </div>
-        <nav className="flex-1 px-6 space-y-3">
-          <Link href="/" className="block px-5 py-3.5 rounded-lg text-on-surface/80 font-medium hover:bg-surface-container transition-colors">
-            Browse All
-          </Link>
-          <Link href="/pattern-calculator" className="block px-5 py-3.5 rounded-lg text-on-surface/80 font-medium hover:bg-surface-container transition-colors">
-            Pattern Calculator
-          </Link>
-        </nav>
-      </aside>
+      <Sidebar />
 
       <main className="flex-1 h-full bg-surface relative overflow-y-auto w-full">
         <Header />

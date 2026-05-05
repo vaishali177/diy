@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import Link from 'next/link'
+import Sidebar from '@/components/Sidebar'
 
 export const metadata: Metadata = {
   title: "Beginner's Guide to Plush Fabrics: Your Cheat Sheet | Loom & Craft",
@@ -12,21 +13,7 @@ export const metadata: Metadata = {
 export default function PlushFabricsGuideArticle() {
   return (
     <>
-      <aside className="w-full md:w-[340px] h-auto md:h-full bg-surface-container-low flex flex-col pt-6 md:pt-12 pb-4 md:pb-8 shrink-0 border-b md:border-b-0 md:border-r border-outline-variant/15 relative z-20">
-        <div className="px-6 md:px-10 mb-2 md:mb-16">
-          <Link href="/" className="text-3xl md:text-4xl font-serif tracking-tight font-medium text-primary hover:opacity-80 transition-opacity">
-            Loom &amp; Craft
-          </Link>
-        </div>
-        <nav className="flex-1 px-4 md:px-6 space-y-2 md:space-y-3 hidden md:block">
-          <Link href="/" className="block px-5 py-3.5 rounded-lg bg-surface-container text-on-surface font-semibold hover:bg-surface-container-high transition-colors">
-            Browse All
-          </Link>
-          <Link href="/pattern-calculator" className="block px-5 py-3.5 rounded-lg text-on-surface/80 font-medium hover:bg-surface-container transition-colors">
-            Pattern Calculator
-          </Link>
-        </nav>
-      </aside>
+      <Sidebar />
 
       <main className="flex-1 h-full bg-surface relative overflow-y-auto w-full">
         <Header />
